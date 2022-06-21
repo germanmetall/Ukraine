@@ -1,87 +1,63 @@
 <template>
-	<div class="home home--black">
+	<div class="history history--black">
 		<div class="page">
 			<!-- design elements -->
 			<div id="leftOrnament"></div>
 			<div id="rightOrnament"></div>
 
 			<main class="main">
-				<h1 class="heading heading--big">Ukrainian culture</h1>
+				<h1 class="heading heading--big">Ukrainian history</h1>
 
 				<img class="divider" src="@/assets/divider.svg"/>
 
-				<nav>
-					<div class="list list--no-type">
-						<div class="listItem heading heading--small" v-for="tag of getTags()" :key="tag" @click="applyFilter(tag)">
-							{{tag}}
-						</div>
-					</div>
-				</nav>
+                <l-map ref="map" :v-model="zoom" :v-model:zoom="zoom" :center="[49.1,32.5]" style="height:50vh">
+                    <l-tile-layer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        layer-type="base"
+                        name="OpenStreetMap"
+                    ></l-tile-layer>
+                    <l-geo-json :geojson="geojson" :options="geojsonOptions" />
+                </l-map>
 			</main>
-		</div>
-
-		<div class="page page--extend">
-			<div class="list list--articles">
-				<div class="listItem" v-for="article of filteredArticles" :key="article">
-					<article class="article">
-						<h1 class="article__title heading heading--medium">
-							{{article.title}}
-						</h1>
-						<span class="article__description">
-							{{article.description}}
-						</span>
-						<div class="article__info">
-							<span class="article__author">
-								{{article.author}}
-							</span>
-							<time class="article__date">
-								{{article.date}}
-							</time>
-						</div>
-					</article>
-				</div>	
-			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import "leaflet/dist/leaflet.css";
+import { LMap, LGeoJson, LTileLayer, LControlLayers, } from "@vue-leaflet/vue-leaflet";
+
 export default {
+    components: {
+        LMap,
+        LGeoJson,
+        LTileLayer,
+        LControlLayers
+    },
 	name: 'Home',
 	data(){
 		return{
-			articles: [
-				{
-					tags: ["Literature"],
-					title: "Lit 1",
-					description: "Description about this article lorem ipsum dolor sit amet",
-					author: "Herman Mossur",
-					date: new Date().toLocaleDateString()
-				},{
-					tags: ["Literature", "Ethno life"],
-					title: "Lit & ethno 1",
-					description: "Description about this article lorem ipsum dolor sit amet",
-					author: "Herman Mossur",
-					date: new Date().toLocaleDateString()
-				},{
-					tags: ["Places"],
-					title: "Places 1",
-					description: "Description about this article lorem ipsum dolor sit amet",
-					author: "Herman Mossur",
-					date: new Date().toLocaleDateString()
-				},{
-					tags: ["Literature", "Places"],
-					title: "Lit & places 1",
-					description: "Description about this article lorem ipsum dolor sit amet",
-					author: "Herman Mossur",
-					date: new Date().toLocaleDateString()
-				},
-			],
-			filteredArticles: [],
-			filters: [],
-			isCollapsing: false
-		}
+            zoom: 12,
+            geojson: {
+                type: "FeatureCollection",
+                features: [
+                // ...
+                ],
+            },
+            geojsonOptions: {
+                // Options that don't rely on Leaflet methods.
+            },
+        }
 	},
+    async beforeMount() {
+        // HERE is where to load Leaflet components!
+        const { circleMarker } = await import("leaflet/dist/leaflet-src.esm");
+
+        // And now the Leaflet circleMarker function can be used by the options:
+        this.geojsonOptions.pointToLayer = (feature, latLng) =>
+        circleMarker(latLng, { radius: 8 });
+        this.mapIsReady = true;
+    },
 	mounted(){
 		// on scroll
 		window.addEventListener("scroll", () => {
@@ -175,29 +151,6 @@ body{
     background-size: contain;
     z-index: 0;
 }
-.page{
-	width: 100vw;
-	height: 100vh;
-	margin: 0 auto;
-	max-width: 900px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	transition: 750ms ease-in-out;
-	&.hasFilters{
-		height: 60vh;
-	}
-	&--extend{
-		overflow: hidden;
-		max-height: 0;
-		transition: max-height 750ms ease-in-out;
-		justify-content: flex-start;
-		&.active{
-			padding-bottom: 20vh;
-		}
-	}
-}
 
 .main{
 	position: relative;
@@ -260,6 +213,10 @@ body{
 	}
 }
 
+.divider{
+	margin: 24px auto;
+}
+
 @media (max-width: 800px) {
 	.page{
 		display: grid;
@@ -291,7 +248,7 @@ body{
 	}
 }
 
-.home{
+.history{
 	width: 100vw;
 	height: auto;
 	&--white{}
