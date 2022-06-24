@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Oy-ziydy-ziydy-iasen-misiatsiu.mp3"
   },
   {
-    "revision": "c9906c7ce7712d6bd427",
-    "url": "/css/app.6c872b92.css"
+    "revision": "da489ee553f6397b9ea1",
+    "url": "/css/app.ada632c5.css"
   },
   {
     "revision": "a29705026e5bd6e3c731",
@@ -56,12 +56,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/tinsontsia.c13bcb48.jpg"
   },
   {
-    "revision": "e5c86dfdad0363c50345e979b00382b2",
+    "revision": "3935d052edc8f6b5e8afa95f7b8207a5",
     "url": "/index.html"
   },
   {
-    "revision": "c9906c7ce7712d6bd427",
-    "url": "/js/app.bde72ef5.js"
+    "revision": "da489ee553f6397b9ea1",
+    "url": "/js/app.4f09ff3c.js"
   },
   {
     "revision": "bd7d183c9f68e5f4027d",

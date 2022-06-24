@@ -8,7 +8,7 @@
 			<main class="main">
 				<h1 class="heading heading--big">Ukrainian history</h1>
 
-				<img class="divider" src="@/assets/divider.svg"/>
+				<img class="divider divider__big" src="@/assets/divider.svg"/>
 
                 <l-map ref="map" :v-model="zoom" :v-model:zoom="zoom" :center="[49.1,32.5]" style="height:50vh">
                     <l-tile-layer
@@ -107,7 +107,6 @@ export default {
 					document.querySelector("#leftOrnament").style.top = `${-86 * (1 - scrollPercentage)}px`;
 				}, 50)
 			}
-			console.log(this.filters);
 		},
 	}
 }

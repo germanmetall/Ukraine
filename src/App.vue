@@ -11,6 +11,10 @@
   color: #2c3e50;
 }
 
+*{
+  box-sizing: border-box;
+}
+
 @font-face {
 	font-family: Kyiv;
 	src: url("~@/assets/KyivTypeSans-Regular.otf");
@@ -26,12 +30,19 @@ body{
 }
 
 .divider{
+	width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-	margin: 24px auto;
+	margin: 48px auto;
+  &__big{
+    max-width: 606px;
+  }
   &__small{
+    width: 40%;
+    max-width: 256px;
+    margin: 0 auto;
     &--left{}
     &--right{
       transform: rotateY(180deg);
@@ -40,14 +51,13 @@ body{
 }
 
 .page{
-	width: 100vw;
+  width: 100%;
 	min-height: 100vh;
 	margin: 0 auto;
 	max-width: 900px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	align-items: center;
 	transition: 750ms ease-in-out;
 	&.hasFilters{
 		height: 60vh;
@@ -64,6 +74,7 @@ body{
 }
 
 .audio__player{
+  max-width: 80vw;
   &-title{
     white-space: pre-wrap;
     color: #E8DBDA !important;

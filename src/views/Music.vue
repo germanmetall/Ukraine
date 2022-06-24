@@ -8,7 +8,7 @@
 			<main class="main">
 				<h1 class="heading heading--big">Ukrainian music</h1>
 
-				<img class="divider" src="@/assets/divider.svg"/>
+				<img class="divider divider__big" src="@/assets/divider.svg"/>
 
                 <div class="articles">
 
@@ -34,13 +34,13 @@
 							These bands above are my personal recomendations. You can see their most impressive videos by <span class="band-name">clicking on images above</span>. You will be redirected to YouTube.
 							<br/>
 							<br/>
-							<span class="band-name" @mouseover="hoverBand(0)" @mouseout="unhoverBand(0)">Sun Shadow (Тінь Сонця)</span> performs heavy-metal and folk-metal.
+							<span class="band-name" @mouseover="hoverBand(0)" @mouseout="unhoverBand(0)" @click="goToBand(0)">Sun Shadow (Тінь Сонця)</span> performs heavy-metal and folk-metal.
 							<br/>
 							<br/>
-							<span class="band-name" @mouseover="hoverBand(1)" @mouseout="unhoverBand(1)">Kalush (Калуш)</span> is a world-known (thanks to the Eurovision'22) Ukrainian rap-band. Has two projects: the original Kalush (more of a "straight" rap) and Kalush Orchestra, which focuses on hip hop blended with folk motifs and elements from Ukrainian traditional music.
+							<span class="band-name" @mouseover="hoverBand(1)" @mouseout="unhoverBand(1)" @click="goToBand(1)">Kalush (Калуш)</span> is a world-known (thanks to the Eurovision'22) Ukrainian rap-band. Has two projects: the original Kalush (more of a "straight" rap) and Kalush Orchestra, which focuses on hip hop blended with folk motifs and elements from Ukrainian traditional music.
 							<br/>
 							<br/>
-							Fans of pop-music may also like <span class="band-name" @mouseover="hoverBand(2)" @mouseout="unhoverBand(2)">Antytila (Антитіла)</span>. This band also combines ukrainian style width a pop-rock / indie-rock / alt-rock.
+							Fans of pop-music may also like <span class="band-name" @mouseover="hoverBand(2)" @click="goToBand(2)" @mouseout="unhoverBand(2)">Antytila (Антитіла)</span>. This band also combines ukrainian style width a pop-rock / indie-rock / alt-rock.
 						</div>
 
 						<div class="divider">						
@@ -92,7 +92,7 @@ export default {
                 {
 					heading: "Bandura",
 					href: "https://en.wikipedia.org/wiki/Bandura",
-                    text: "- the most known Ukrainian musical instrument (alongside with kobza). Closely related with hapr, lyre. It is suggested that the instrument developed as a hybrid of gusli (psaltery) and kobza (lute). First mentioned in 1441. Was one of  the most popular instrument among cossacs. Is regaining it's popularity from 1970s.\n\nModern musicians like to use bandura in folk-rock/metal, folk-pop. Can be performed either solo or combined with other instruments.\n\nBands: Тінь Сонця, Бандурбенд, HASPYD, Шпилясті кобзарі",
+                    text: "- the most known Ukrainian musical instrument (alongside with kobza). Closely related with hapr, lyre. It is suggested that the instrument developed as a hybrid of gusli (psaltery) and kobza (lute). First mentioned in 1441. Was one of the most popular instrument among cossacs. Is regaining it's popularity from 1970s.\n\nModern musicians like to use bandura in folk-rock/metal, folk-pop. Can be performed either solo or combined with other instruments.\n\nBands: Тінь Сонця, Бандурбенд, HASPYD, Шпилясті кобзарі",
                     img: "https://static.ukrinform.com/photos/2018_10/1540217060-709.jpg",
 					media: [
 						{
@@ -170,6 +170,13 @@ export default {
 		},
 		unhoverBand(index){
 			document.querySelectorAll(".modernMusic__img")[index].classList.remove("active");
+		},
+		goToBand(index){
+			scrollTo({
+				left: 0,
+				top: +(document.querySelectorAll(".modernMusic__img")[index].offsetTop) - 100,
+ 				behavior: 'smooth'
+			});
 		}
 	}
 }
@@ -339,43 +346,7 @@ body{
 	}
 }
 
-.divider{
-	margin: 24px auto;
-}
-
-@media (max-width: 800px) {
-	.page{
-		display: grid;
-		grid-template-rows: 100px auto;
-	}
-	@keyframes leftOrnamentAnimationMobile {
-		0%{
-			transform: rotateZ(-90deg) translateY(-150vw);
-		}
-		100%{
-			transform: rotateZ(-90deg) translateY(-100px);
-		}
-	}
-	#leftOrnament{
-		position: relative !important;
-		z-index: 1;
-		width: 100px;
-		height: 100vw;
-		clip-path: none;
-		left: 0;
-		top: 2vh;
-		transform-origin: 100% 0;
-		transform: rotateZ(-90deg) translateY(-150vw);
-    	animation: leftOrnamentAnimationMobile 4s 1s ease-in-out forwards;
-	}
-	.main{
-		position: relative;
-		z-index: 2;
-	}
-}
-
 .music{
-	width: 100vw;
 	height: auto;
 	&--white{}
 	&--black{
@@ -386,6 +357,62 @@ body{
 		}
 		#rightOrnament{
 			background-image: url("~@/assets/image_2022-03-27_14-32-52.png");
+		}
+	}
+}
+
+@media (max-width: 800px) {
+	@keyframes leftOrnamentAnimationMobile {
+		0%{
+			transform: rotateZ(-90deg) translateY(-150vw);
+		}
+		100%{
+			transform: rotateZ(-90deg) translateY(-100px);
+		}
+	}
+	#leftOrnament, #rightOrnament{
+		display: none;
+	}
+	.main{
+		position: relative;
+		z-index: 2;
+		padding: 12px;
+	}
+	.modernMusic{
+		&__imgs{
+			flex-direction: column;
+			gap: 24px;
+		}
+		&__img{
+			&Container{
+				clip-path: unset;
+				border-radius: 24px;
+			}
+		}
+	}
+	.article{
+		max-width: 80vw;
+		margin: 0 auto;
+		&__heading{
+			margin: 0 0 32px 0;
+		}
+		&__img{
+			float: unset;
+			clip-path: unset;
+			border-radius: 48px;
+			margin: 0 auto 24px auto;
+			&:hover{
+				clip-path: unset;
+			}
+		}
+		&__info{
+			text-align: center;
+		}
+		.media{
+			max-width: 80vw;
+			margin: 24px auto;
+			flex-direction: column;
+			padding: 0px;
 		}
 	}
 }

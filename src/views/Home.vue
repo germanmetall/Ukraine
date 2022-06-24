@@ -8,7 +8,7 @@
 			<main class="main">
 				<h1 class="heading heading--big">Ukrainian culture</h1>
 
-				<img class="divider" src="@/assets/divider.svg"/>
+				<img class="divider divider__big" src="@/assets/divider.svg"/>
 
 				<nav>
 					<div class="list list--no-type">
@@ -131,7 +131,6 @@ export default {
 					document.querySelector("#leftOrnament").style.top = `${-86 * (1 - scrollPercentage)}px`;
 				}, 50)
 			}
-			console.log(this.filters);
 		},
 	}
 }
